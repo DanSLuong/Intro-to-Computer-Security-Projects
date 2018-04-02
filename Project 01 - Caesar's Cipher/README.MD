@@ -12,7 +12,7 @@ Write a C++ or JAVA program to decipher it. Submit the following:
 3. The plaintext
 
 ### Necessary Resources
-- Visual Studio[https://www.visualstudio.com/] or any C++ IDE
+- [Visual Studio](https://www.visualstudio.com/) or any C++ IDE
 
 ### Instructions
 1. Download the files located in this repo into a folder.
