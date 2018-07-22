@@ -13,24 +13,26 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 
 unsigned char S[256];
 unsigned int i, j;
 
-void KSA(unsigned char *key)
+char KSA(char *key)
 {
-    unsigned int key_length;
+    int key_length;
 
-    key_length = key.length();
+    key_length = strlen(key);
 
     for (int i = 0; i < 256; i++)
     {
-        S[i] = i; //S[i] := i
+        S[i] = i; // S[i] := i
     }
 
-    int j = 0; //j := 0
+    int j = 0; // j := 0
 
     for (int i = 0; i < 256; i++)
     {
@@ -39,6 +41,8 @@ void KSA(unsigned char *key)
         // swap values of S[i] and S[j]
         swap(S, i, j);
     }
+
+    return *S;
 }
 
 char PRGA(unsigned char *S)
@@ -50,7 +54,7 @@ char PRGA(unsigned char *S)
     i = (i + 1) % 256;    // i := (i + 1) % 256
     j = (j + S[i]) % 256; // j := (j + S[i]) % 256
 
-    //swap values of S[i] and S[j]
+    // swap values of S[i] and S[j]
     swap(S, i, j);
 
     //output K
@@ -58,9 +62,9 @@ char PRGA(unsigned char *S)
 }
 
 // Created a swap function for less redundancy
-void swap(unsigned char *S, unsigned int i, unsigned int j){
-    int temp_i = 0;
-    int temp_j = 0;
+void swap(unsigned char *S, unsigned int i, unsigned int j)
+{
+    int temp_i, temp_j = 0;
 
     // Assign temp values for swapping
     temp_i = S[i];
@@ -72,21 +76,26 @@ void swap(unsigned char *S, unsigned int i, unsigned int j){
 }
 
 // This function encrypts the Caesar Cipher
-string encrypt(string plaintext, char key)
+char encrypt(char *key, char *plaintext)
 {
-    string result[];
+    char result;
     char keystream;
+    int text_length = strlen(plaintext);
 
-    S[] = KSA(key);
-    keystream = PRGA(S);
+    *S = KSA(key);
+    for (int i = 0; i <= text_length; i++)
+    {
+        keystream = PRGA(S);
+        result += plaintext[i] ^ keystream;
+    }
 
     return result;
 }
 
 // This function decrypts the ciphertext
-string decrypt(string ciphertext, char S)
+char *decrypt(char *ciphertext)
 {
-    string result = "";
+    char *result;
 
     return result;
 }
@@ -95,8 +104,13 @@ int main()
 {
     ifstream inputFile;
     string fileName;
-    char userKey;
-    char key[userKey.lenght()];
+    string userKey;
+
+    char *ch;
+    char key[32];
+    char plaintext[256];
+    char ciphertext[256];
+    string newplaintext;
 
     // Get the file name of the plaintext
     cout << "Enter the plaintext file name: " << endl;
@@ -108,6 +122,18 @@ int main()
     cin >> userKey;
     cout << endl;
 
-    // Open the designated plaintext file
-    inputFile.open(fileName.c_str(), ios::in);
+    for (int i; i < userKey.length(); i++)
+    {
+        key[i] += userKey[i];
+    }
+
+    // Prints the Original and Decoded Text
+    cout << "Plaintext: " << endl;
+    cout << plaintext << endl
+         << endl;
+    cout << "Encrypted Text: " << endl;
+    cout << ciphertext << endl
+         << endl;
+
+    return 0;
 }
