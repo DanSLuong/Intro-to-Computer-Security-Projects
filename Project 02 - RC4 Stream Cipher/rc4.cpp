@@ -41,10 +41,7 @@ void KSA(char key)
         j = (j + S[i] + key[i % key_length] % 256); // j:=(j+S[i]+key[i%key_length]%256)
 
         // swap values of S[i] and S[j]
-        temp_i = S[i];
-        temp_j = S[j];
-        S[i] = temp_j;
-        S[j] = temp_i;
+        swap(S, i, j);
     }
 }
 
@@ -53,21 +50,26 @@ char PRGA(char S[])
     int i = 0; // i := 0
     int j = 0; // j := 0
 
-    int temp_i = 0;
-    int temp_j = 0;
-
     // while GeneratingOutput:
     i = (i + 1) % 256;    // i := (i + 1) % 256
     j = (j + S[i]) % 256; // j := (j + S[i]) % 256
 
     //swap values of S[i] and S[j]
+    swap(S, i, j);
+
+    //output K
+    return S[(S[i] + S[j]) % 256]; //K := S[(S[i] + S[j]) % 256]
+}
+
+// Created a swap function for less redundancy
+void swap(char S, int i, int j){
+    int temp_i = 0;
+    int temp_j = 0;
+
     temp_i = S[i];
     temp_j = S[j];
     S[i] = temp_j;
     S[j] = temp_i;
-
-    //output K
-    return S[(S[i] + S[j]) % 256]; //K := S[(S[i] + S[j]) % 256]
 }
 
 // This function encrypts the Caesar Cipher
