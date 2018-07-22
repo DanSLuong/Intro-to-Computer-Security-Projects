@@ -16,17 +16,13 @@
 
 using namespace std;
 
-// unsigned char S[256];
-// unsigned int i, j;
+unsigned char S[256];
+unsigned int i, j;
 
-void KSA(char key)
+void KSA(unsigned char *key)
 {
-    char S[256];
+    unsigned int key_length;
 
-    int temp_i = 0;
-    int temp_j = 0;
-
-    int key_length = 0;
     key_length = key.length();
 
     for (int i = 0; i < 256; i++)
@@ -38,14 +34,14 @@ void KSA(char key)
 
     for (int i = 0; i < 256; i++)
     {
-        j = (j + S[i] + key[i % key_length] % 256); // j:=(j+S[i]+key[i%key_length]%256)
+        j = (j + S[i] + key[i % key_length]) % 256; // j:=(j+S[i]+key[i%key_length])%256
 
         // swap values of S[i] and S[j]
         swap(S, i, j);
     }
 }
 
-char PRGA(char S[])
+char PRGA(unsigned char *S)
 {
     int i = 0; // i := 0
     int j = 0; // j := 0
@@ -62,12 +58,15 @@ char PRGA(char S[])
 }
 
 // Created a swap function for less redundancy
-void swap(char S, int i, int j){
+void swap(unsigned char *S, unsigned int i, unsigned int j){
     int temp_i = 0;
     int temp_j = 0;
 
+    // Assign temp values for swapping
     temp_i = S[i];
     temp_j = S[j];
+
+    // Reassign values
     S[i] = temp_j;
     S[j] = temp_i;
 }
@@ -76,7 +75,6 @@ void swap(char S, int i, int j){
 string encrypt(string plaintext, char key)
 {
     string result[];
-    char S[256];
     char keystream;
 
     S[] = KSA(key);
@@ -97,7 +95,8 @@ int main()
 {
     ifstream inputFile;
     string fileName;
-    string userKey;
+    char userKey;
+    char key[userKey.lenght()];
 
     // Get the file name of the plaintext
     cout << "Enter the plaintext file name: " << endl;
