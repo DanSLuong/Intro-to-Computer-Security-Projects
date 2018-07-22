@@ -16,7 +16,6 @@
 
 using namespace std;
 
-
 // unsigned char S[256];
 // unsigned int i, j;
 
@@ -32,69 +31,54 @@ void KSA(char key)
 
     for (int i = 0; i < 256; i++)
     {
-        //S[i] := i
-        S[i] = i;
+        S[i] = i; //S[i] := i
     }
-    //j := 0 
-    int j = 0;
+
+    int j = 0; //j := 0
+
     for (int i = 0; i < 256; i++)
     {
-        // j:=(j+S[i]+key[i%key_length]%256)
-        j = (j + S[i] + key[i % key_length] % 256);
+        j = (j + S[i] + key[i % key_length] % 256); // j:=(j+S[i]+key[i%key_length]%256)
 
         // swap values of S[i] and S[j]
-        temp_i=S[i];
-        temp_j=S[j];
-        S[i]=temp_j;
-        S[j]=temp_i;
+        temp_i = S[i];
+        temp_j = S[j];
+        S[i] = temp_j;
+        S[j] = temp_i;
     }
 }
 
 char PRGA(char S[])
 {
-    // i := 0 
-    int i = 0;
-    // j := 0 
-    int j = 0;
+    int i = 0; // i := 0
+    int j = 0; // j := 0
 
     int temp_i = 0;
     int temp_j = 0;
 
     // while GeneratingOutput:
-    while (K)
-    {
-        // i := (i + 1) % 256
-        i = (i + 1) % 256;
+    i = (i + 1) % 256;    // i := (i + 1) % 256
+    j = (j + S[i]) % 256; // j := (j + S[i]) % 256
 
-        // j := (j + S[i]) % 256
-        j = (j + S[i]) % 256;
+    //swap values of S[i] and S[j]
+    temp_i = S[i];
+    temp_j = S[j];
+    S[i] = temp_j;
+    S[j] = temp_i;
 
-        //swap values of S[i] and S[j]
-        temp_i=S[i];
-        temp_j=S[j];
-        S[i]=temp_j;
-        S[j]=temp_i;
-        
-        //K := S[(S[i] + S[j]) % 256]
-        K = S[(S[i] + S[j]) % 256];
-
-        //output K
-        return K;
-    }
+    //output K
+    return S[(S[i] + S[j]) % 256]; //K := S[(S[i] + S[j]) % 256]
 }
-
-char keystream(char key){
-    char S[256];
-    S[]=KSA(key);
-    return PRGA(S);
-}
-
 
 // This function encrypts the Caesar Cipher
-string encrypt(string plaintext, char S)
+string encrypt(string plaintext, char key)
 {
-    string result = "";
+    string result[];
+    char S[256];
+    char keystream;
 
+    S[] = KSA(key);
+    keystream = PRGA(S);
 
     return result;
 }
@@ -104,7 +88,6 @@ string decrypt(string ciphertext, char S)
 {
     string result = "";
 
-
     return result;
 }
 
@@ -112,7 +95,6 @@ int main()
 {
     ifstream inputFile;
     string fileName;
-    char ch;
     string userKey;
 
     // Get the file name of the plaintext
@@ -128,4 +110,3 @@ int main()
     // Open the designated plaintext file
     inputFile.open(fileName.c_str(), ios::in);
 }
-
