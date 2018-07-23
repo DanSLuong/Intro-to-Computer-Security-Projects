@@ -112,7 +112,7 @@ int main()
     cin >> fileName;
     cout << endl;
 
-    cout << "Enter a 5 byte to 32 byte long key to encrypt and decrypt with: " << endl;
+    cout << "Enter a 5 byte to 32 byte long key to encrypt with: " << endl;
     cin >> userkey;
     cout << endl;
 
@@ -149,7 +149,7 @@ int main()
     char *ciphertext = Encode.encrypt(plaintext);
     // Print the encrypted ciphertext that was created form the key
     cout << "Encrypted Ciphertext: " << endl;
-    
+
     /*
     int ciphertext_len = strlen(plaintext);
     // Convert to hex and stores in new string
@@ -163,22 +163,9 @@ int main()
     cout << newValue << endl
          << endl;
     */
-    
-    cout << ciphertext << endl << endl;
-    cout << endl
-         << endl;
 
-    cout << "--------------------------------------------------------------------------------------------------------" << endl;
-    // Print the ciphertext that is going to be decrypted
-    cout << "Ciphertext being decrypted: " << endl;
     cout << ciphertext << endl
          << endl;
-
-    Decode.KSA(key);
-    // Print the decrypted plaintext found with the key
-    char *newplaintext = Decode.encrypt(plaintext);
-    cout << "Decrypted Plaintext: " << endl;
-    cout << newplaintext << endl
+    cout << endl
          << endl;
-
 }

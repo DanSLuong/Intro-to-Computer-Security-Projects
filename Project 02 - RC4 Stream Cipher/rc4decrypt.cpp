@@ -7,9 +7,9 @@
 // Be sure to discard the first 3072 bytes of the pseudo random numbers.
 // THE KEY OR THE INPUT TEXT MUST NOT BE HARD CODED IN THE PROGRAM.
 // You should write TWO separate programs: encryption and decryption.
-// The encryption program should input the plaintext file and output a
+// The encryption program should input the ciphertext file and output a
 // cipher text in hex. The decryption program should input the cipher
-// text file in hex and output the plaintext.
+// text file in hex and output the ciphertext.
 
 #include <iostream>
 #include <fstream>
@@ -26,7 +26,7 @@ class RC4
     void swap(int *S, int i, int j);
     void KSA(char *key);
     char PRGA();
-    char *encrypt(char *plaintext);
+    char *encrypt(char *ciphertext);
 
   private:
     int S[256];
@@ -86,18 +86,18 @@ char RC4::PRGA()
     return S[(S[i] + S[j]) % 256]; //K := S[(S[i] + S[j]) % 256]
 }
 
-// Encrypt the plaintext
-char *RC4::encrypt(char *plaintext)
+// Encrypt the ciphertext
+char *RC4::encrypt(char *ciphertext)
 {
     char stream;
-    int plaintext_len;
-    plaintext_len = strlen(plaintext);
-    for (int i = 0; i <= plaintext_len; i++)
+    int ciphertext_len;
+    ciphertext_len = strlen(ciphertext);
+    for (int i = 0; i <= ciphertext_len; i++)
     {
         stream = PRGA();
-        plaintext[i] = plaintext[i] ^ stream;
+        ciphertext[i] = ciphertext[i] ^ stream;
     }
-    return plaintext;
+    return ciphertext;
 }
 
 int main()
@@ -106,13 +106,13 @@ int main()
     ifstream inputFile;
     string fileName;
     string userkey;
-    string plaintext_str;
+    string ciphertext_str;
 
-    cout << "Enter the file name  you wish to encrypt: " << endl;
+    cout << "Enter the file name  you wish to decrypt: " << endl;
     cin >> fileName;
     cout << endl;
 
-    cout << "Enter a 5 byte to 32 byte long key to encrypt and decrypt with: " << endl;
+    cout << "Enter a 5 byte to 32 byte long key to decrypt with: " << endl;
     cin >> userkey;
     cout << endl;
 
@@ -121,14 +121,14 @@ int main()
 
     if (inputFile.is_open())
     {
-        getline(inputFile, plaintext_str);
+        getline(inputFile, ciphertext_str);
     }
 
-    char plaintext[1000];
+    char ciphertext[1000];
 
-    for (int i = 0; i <= plaintext_str.length(); i++)
+    for (int i = 0; i <= ciphertext_str.length(); i++)
     {
-        plaintext[i] = plaintext_str[i];
+        ciphertext[i] = ciphertext_str[i];
     }
 
     char key[32];
@@ -138,20 +138,10 @@ int main()
     }
 
     // Declare two objects for encryption and decryption
-    RC4 Encode;
     RC4 Decode;
 
-    Encode.KSA(key);
-
-    // Print the original plaintext from the file
-    cout << "Plaintext being encrypted: " << plaintext << endl
-         << endl;
-    char *ciphertext = Encode.encrypt(plaintext);
-    // Print the encrypted ciphertext that was created form the key
-    cout << "Encrypted Ciphertext: " << endl;
-    
     /*
-    int ciphertext_len = strlen(plaintext);
+    int ciphertext_len = strlen(ciphertext);
     // Convert to hex and stores in new string
     stringstream ss;
     string newValue;
@@ -163,21 +153,16 @@ int main()
     cout << newValue << endl
          << endl;
     */
-    
-    cout << ciphertext << endl << endl;
-    cout << endl
-         << endl;
 
-    cout << "--------------------------------------------------------------------------------------------------------" << endl;
     // Print the ciphertext that is going to be decrypted
     cout << "Ciphertext being decrypted: " << endl;
     cout << ciphertext << endl
          << endl;
 
     Decode.KSA(key);
-    // Print the decrypted plaintext found with the key
-    char *newplaintext = Decode.encrypt(plaintext);
-    cout << "Decrypted Plaintext: " << endl;
+    // Print the decrypted ciphertext found with the key
+    char *newplaintext = Decode.encrypt(ciphertext);
+    cout << "Decrypted plaintext: " << endl;
     cout << newplaintext << endl
          << endl;
 

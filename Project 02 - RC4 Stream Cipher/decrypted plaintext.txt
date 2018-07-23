@@ -1,0 +1,2 @@
+?ώ?rT?)?㇚,?????5me?i?\𲴟^ڂ?;??tiZ?';TI:˞????^fg?#K{?
+                                                     ?Ra?UD???lC4) is a sream cipher. While remarkable for is simpliciy and speed in sofware, muliple vulnerabiliies have been discovered in RC4, rendering i insecure. I is especially vulnerable when he beginning of he oupu keysream is no discarded, or when nonrandom or relaed keys are used. Paricularly problemaic uses of RC4 have led o very insecure proocols such as WEP.
