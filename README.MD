@@ -2,4 +2,4 @@
 
 ### Description
 
-This is a collection of the projects that I will be completing through my my Computer Security course. These projects will all be completed using either JAVA or C++.
+This is a collection of the projects that I will be completing through my Computer Security courses. These projects will all be completed using either JAVA or C++.
